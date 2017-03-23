@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config>
+
+	<import name="xconfig"         class="java.util.ArrayList" />
+	<import name="solr"            class="org.hy.common.solr.Solr" />
+	<import name="page"            class="org.hy.common.solr.SPage" />
+	<import name="querys"          class="java.util.ArrayList" />
+	<import name="query"           class="org.hy.common.solr.SQuery" />
+	
+	
+	
+	<!-- Solr配置信息 -->
+	<xconfig>
+	
+		<!-- 定义Solr服务信息 -->
+		<solr id="SolrServer">
+			<constructor>
+				<String>http://127.0.0.1:8983/solr472</String>
+			</constructor>
+			
+			<connTimeout>10000</connTimeout>
+			<maxConnPerHost>100</maxConnPerHost>
+			<maxConnTotal>10000</maxConnTotal>
+		</solr>
+		
+		
+		<!-- 定义统一分页信息 -->
+		<page id="SolrPage">
+			<perPageSize>100</perPageSize>
+		</page>
+		
+		
+		<!-- Solr查询配置信息 -->
+	    <querys id="SolrQuerys">
+	    
+	    	<query id="SQ_Item" new="true">
+	    		<q>*:*</q>
+	            <fq>
+	            	<field>{!tag=brandTag}title</field>
+	            	<value>百度</value>
+	            </fq>
+	            
+	            <!-- 按brandNo及brand两字段统计 -->
+	            <facet>
+	            	<field>{!ex=brandTag}brandNo</field>
+	            	<field>{!ex=brandTag}brand</field>
+	            </facet>
+	            
+	            <!-- 只显示下面的5个字段 -->
+	            <fl>id ,title ,shopName</fl>
+	            <fl>commoNo</fl>
+	            <fl>brandNo ,brand</fl>
+	            
+	            <!-- 按id降序，commoNo升级，title降序排序 -->
+	            <sort>id ,commoNo asc</sort>
+	            <sort>title</sort>
+				
+				<hl>
+					<fl>title</fl>
+					<simplePre><![CDATA[<font color='red'>]]></simplePre>
+					<simplePost><![CDATA[</font>]]></simplePost>
+				</hl>
+					            
+	            <page ref="SolrPage" />
+	        </query>
+	    
+		</querys>
+		
+	</xconfig>
+	
+</config>
