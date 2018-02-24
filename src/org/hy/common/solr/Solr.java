@@ -1,6 +1,7 @@
 package org.hy.common.solr;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -31,8 +32,10 @@ import org.hy.common.xml.SerializableDef;
 /**
  * Solr搜索服务访问类
  *          
- * @author ZhengWei(HY)
- * @create 2014-11-03
+ * @author  ZhengWei(HY)
+ * @create  2014-11-03
+ * @version v1.0
+ *          v2.0  2018-02-24  当使用v_SolrDocument.getFieldValueMap().entrySet()遍历数据时，Solr会有时出现 java.lang.UnsupportedOperationException的异常。
  */
 public class Solr
 {
@@ -754,12 +757,28 @@ public class Solr
         
         for (Iterator<SolrDocument> v_Iter = i_SolrDocs.iterator(); v_Iter.hasNext(); ) 
         {
-            SolrDocument    v_SolrDocument = v_Iter.next();
-            T               v_Bean        = i_BeanClass.newInstance();
-            SerializableDef v_BeanSerial  = (SerializableDef)v_Bean;
+            SolrDocument        v_SolrDocument = v_Iter.next();
+            T                   v_Bean        = i_BeanClass.newInstance();
+            SerializableDef     v_BeanSerial  = (SerializableDef)v_Bean;
+            Map<String ,Object> v_SolrDatas = new HashMap<String ,Object>();
             
-            v_BeanSerial.init(v_SolrDocument.getFieldValueMap());
-            v_Beans.add(v_Bean);
+            try
+            {
+                // 2018-02-24 修复异常：当直接使用v_SolrDocument.getFieldValueMap().entrySet()遍历数据时，Solr会有时出现 java.lang.UnsupportedOperationException的异常。
+                //                    所以改用下面的for循环重新将所有数据保存到新的Map中。
+                for (String v_Name : v_SolrDocument.getFieldNames())
+                {
+                    v_SolrDatas.put(v_Name ,v_SolrDocument.get(v_Name));
+                }
+                
+                v_BeanSerial.init(v_SolrDatas);
+                v_Beans.add(v_Bean);
+            }
+            catch (Exception exce)
+            {
+                // Solr内部异常
+                exce.printStackTrace();
+            }
         }
         
         return v_Beans;
