@@ -89,7 +89,7 @@ public class Solr
     {
         if ( Help.isNull(i_BaseURL) )
         {
-            throw new java.lang.InstantiationError("Solr BaseURL is null.");
+            throw new NullPointerException("Solr BaseURL is null.");
         }
         
         this.baseURL        = i_BaseURL;
