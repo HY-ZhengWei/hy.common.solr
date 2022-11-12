@@ -1,0 +1,6 @@
+Manifest-Version: 1.1.4
+Created-By: HY.ZhengWei@qq.com  2014-11
+Specification-Version: 1.1.4  2022-11-12
+SourceCode: https://github.com/HY-ZhengWei/hy.common.solr
+SourceCodeChina: https://gitee.com/HY-ZhengWei/hy.common.solr
+Build-JDK: 1.8
