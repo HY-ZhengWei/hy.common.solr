@@ -2,5 +2,5 @@ Manifest-Version: 1.1.2
 Created-By: HY.ZhengWei@qq.com  2014-11
 Specification-Version: 1.1.2  2021-03-29
 SourceCode: https://github.com/HY-ZhengWei/hy.common.solr
-SourceCode: https://gitee.com/HY-ZhengWei/hy.common.solr
+SourceCodeChina: https://gitee.com/HY-ZhengWei/hy.common.solr
 Build-JDK: 1.6
