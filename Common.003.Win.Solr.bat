@@ -27,3 +27,5 @@ copy hy.common.solr-sources.jar ..\..\..
 del /Q hy.common.solr-sources.jar
 rd /s/q META-INF
 cd ..\..\..
+
+pause
