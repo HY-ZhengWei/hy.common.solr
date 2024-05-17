@@ -1,5 +1,6 @@
 package org.hy.common.solr;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -754,15 +755,19 @@ public class Solr
      * @return
      * @throws IllegalAccessException
      * @throws InstantiationException
+     * @throws SecurityException
+     * @throws NoSuchMethodException
+     * @throws InvocationTargetException
+     * @throws IllegalArgumentException
      */
-    private <T> List<T> toBeanSerial(SolrDocumentList i_SolrDocs ,Class<T> i_BeanClass) throws InstantiationException, IllegalAccessException
+    private <T> List<T> toBeanSerial(SolrDocumentList i_SolrDocs ,Class<T> i_BeanClass) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException
     {
         List<T> v_Beans = new ArrayList<T>(i_SolrDocs.size());
         
         for (Iterator<SolrDocument> v_Iter = i_SolrDocs.iterator(); v_Iter.hasNext(); )
         {
             SolrDocument        v_SolrDocument = v_Iter.next();
-            T                   v_Bean        = i_BeanClass.newInstance();
+            T                   v_Bean        = i_BeanClass.getDeclaredConstructor().newInstance();
             SerializableDef     v_BeanSerial  = (SerializableDef)v_Bean;
             Map<String ,Object> v_SolrDatas = new HashMap<String ,Object>();
             
