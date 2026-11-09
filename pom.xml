@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -12,7 +12,7 @@
     <name>cn.openapis.hy.common.solr</name>
     <!-- https://gitee.com/HY-ZhengWei/hy.common.solr -->
     <url>https://github.com/HY-ZhengWei/hy.common.solr</url>
-    <description>cn.openapis.hy.common.solr</description>
+    <description>Solr全文检索与查询组件（Full-text search and query component）</description>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -54,14 +54,14 @@
         <dependency>
             <groupId>cn.openapis</groupId>
             <artifactId>hy.common.base</artifactId>
-            <version>1.0.186</version>
+            <version>1.0.217</version>
             <scope>provided</scope>
         </dependency>
         
         <dependency>
             <groupId>cn.openapis</groupId>
             <artifactId>hy.common.xjava</artifactId>
-            <version>4.5.7</version>
+            <version>5.0.6</version>
             <scope>test</scope>
         </dependency>
 
@@ -169,7 +169,7 @@
             <plugin>
                 <groupId>org.sonatype.central</groupId>
                 <artifactId>central-publishing-maven-plugin</artifactId>
-                <version>0.6.0</version>
+                <version>0.8.0</version>
                 <extensions>true</extensions>
                 <configuration>
                     <publishingServerId>central</publishingServerId>
